@@ -1,0 +1,16 @@
+[Unit]
+Description=xmrig
+After=syslog.target
+
+[Service]
+WorkingDirectory={working_dir}
+Type=simple
+User={user}
+ExecStart={path_to_xmrig} -o itns.intensepool.net -u {wallet_address} -l {log_file} --donate-level={donate_level %}
+Restart=on-abort
+StartLimitBurst=0
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

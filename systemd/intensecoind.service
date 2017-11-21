@@ -1,0 +1,16 @@
+[Unit]
+Description=intensecoind-blockchain
+After=syslog.target
+
+[Service]
+WorkingDirectory={working_dir}
+Type=simple
+User={user}
+ExecStart={path_to_intensecoind} --data-dir {working_dir} --log-file {log_file}
+Restart=on-abort
+StartLimitBurst=0
+ExecReload=/bin/kill -s HUP $MAINPID  
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target
